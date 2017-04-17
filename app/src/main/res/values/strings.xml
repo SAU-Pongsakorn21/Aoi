@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Aoi</string>
+    <string name="detail_txt_title">ชื่อสถานที่</string>
+    <string name="detail_txt_show">ระยะทาง</string>
+    <string name="detail_btn_extra">รายระเอียดเพิ่มเติม คลิกที่นี่...</string>
+    <string name="add_txt_title1">ชื่อสถานที่</string>
+    <string name="rgt_txt_username">Username</string>
+    <string name="rgt_txt_password">Password</string>
+    <string name="rgt_txt_email">E-mail</string>
+    <string name="rgt_hint_username">Enter username</string>
+    <string name="rgt_hint_password">Enter password</string>
+    <string name="rgt_hint_email">Enter e-mail</string>
+    <string name="rgt_btn_register">Register User</string>
+    <string name="rgt_txt_01">Already Registered?\nClick Here to Login</string>
+    <string name="add_txt_place_name">ชื่อสถานที่</string>
+    <string name="add_txt_place_detail">รายละเอียด</string>
+    <string name="add_txt_latitude">Latitude : </string>
+    <string name="add_txt_longitude">Longitude : </string>
+    <string name="add_txt_username">ชื่อผู้ใช้ : </string>
+    <string name="add_btn_add">Add Location</string>
+    <string name="add_btn_cancel">Cancel</string>
+    <string name="main_txt_cameraview">Camera View</string>
+    <string name="main_txt_register">Register</string>
+    <string name="main_txt_title01">Welcome to Aoi</string>
+    <string name="main_txt_title02">Area Interested</string>
+    <string name="add_txt_upload">Upload Images</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_profile">Profile</string>
+    <string name="login">Login</string>
+    <string name="app_navheader">Area of Interested</string>
+    <string name="app_navheader2">s5652410021@sau.ac.th</string>
+    <string name="app_map_view">Map View</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="app_communication">Communication</string>
+</resources>

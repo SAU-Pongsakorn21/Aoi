@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="detail_image_48dp">48dp</dimen>
+    <dimen name="view_margin_16dp">16dp</dimen>
+    <dimen name="detail_text_size_18sp">18sp</dimen>
+    <dimen name="zero_dimen">0dp</dimen>
+    <dimen name="cardview_margin">5dp</dimen>
+    <dimen name="number3DP">3dp</dimen>
+    <dimen name="cardview_radius">2dp</dimen>
+    <dimen name="cardview_image_height">160dp</dimen>
+    <dimen name="cardview_padding">10dp</dimen>
+    <dimen name="cardview_sizetext">15sp</dimen>
+    <dimen name="cardview_paddingBottom">5dp</dimen>
+    <dimen name="detail_backdrop_height">144dp</dimen>
+    <dimen name="detail_backdrop_text">30sp</dimen>
+    <dimen name="detail_backdrop_subtext">22sp</dimen>
+    <dimen name="number8">8dp</dimen>
+    <dimen name="number192">192dp</dimen>
+    <dimen name="number16">16dp</dimen>
+    <dimen name="number160">160dp</dimen>
+    <dimen name="number100">100dp</dimen>
+    <dimen name="number10">10dp</dimen>
+    <dimen name="number310">310dp</dimen>
+    <dimen name="number250">250dp</dimen>
+    <dimen name="number64">64dp</dimen>
+    <dimen name="number48">48dp</dimen>
+    <dimen name="number3">3dp</dimen>
+    <dimen name="number2">2dp</dimen>
+    <dimen name="number5">5dp</dimen>
+    <dimen name="number0">0dp</dimen>
+    <dimen name="number30">30dp</dimen>
+    <dimen name="number20">20dp</dimen>
+    <dimen name="text_number15">15sp</dimen>
+    <dimen name="text_number25">25sp</dimen>
+    <dimen name="text_number20">20sp</dimen>
+    <dimen name="text_number30">30sp</dimen>
+    <dimen name="text_number12">12sp</dimen>
+    <dimen name="number50">50dp</dimen>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_camera_view"
+            android:title="@string/main_txt_cameraview"
+            android:icon="@drawable/camera"/>
+        <item
+            android:id="@+id/drawer_map_view"
+            android:title="@string/app_map_view"
+            android:icon="@drawable/pindrop24"/>
+    </group>
+    <item android:title="@string/app_communication">
+        <menu>
+            <item
+                android:id="@+id/drawer_logout"
+                android:icon="@drawable/ic_close_black_48dp"
+                android:title="@string/action_logout"/>
+        </menu>
+    </item>
+</menu>

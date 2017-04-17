@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddLocationActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_addLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/add_btn_add"
+                android:layout_marginRight="@dimen/view_margin_16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/add" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_addLocation"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/AddActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_txt_place_name" />
+
+            <EditText
+                android:id="@+id/add_edt_place_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+
+            <TextView
+                style="@style/AddActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_txt_place_detail" />
+
+            <EditText
+                android:id="@+id/add_edt_place_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:maxLines="4"
+                android:lines="4"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    style="@style/AddActivity_child"
+                    android:layout_width="@dimen/zero_dimen"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.60"
+                    android:text="@string/add_txt_latitude" />
+
+                <TextView
+                    android:id="@+id/add_txt_latitude"
+                    style="@style/AddActivity_child"
+                    android:layout_width="@dimen/zero_dimen"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.40" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    style="@style/AddActivity_child"
+                    android:layout_width="@dimen/zero_dimen"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.70"
+                    android:text="@string/add_txt_longitude" />
+
+                <TextView
+                    android:id="@+id/add_txt_longitude"
+                    style="@style/AddActivity_child"
+                    android:layout_width="@dimen/zero_dimen"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.30" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    style="@style/AddActivity_child"
+                    android:layout_width="@dimen/zero_dimen"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.60"
+                    android:text="@string/add_txt_username" />
+
+                <TextView
+                    android:id="@+id/add_txt_username"
+                    style="@style/AddActivity_child"
+                    android:layout_width="@dimen/zero_dimen"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.40" />
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_marginTop="@dimen/view_margin_16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/img_gallery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/gallery"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"/>
+                <ImageView
+                    android:id="@+id/img_camera"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@id/img_gallery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/camera"/>
+                <ImageView
+                    android:id="@+id/img_upload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/upload" />
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/add_lnl_showImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

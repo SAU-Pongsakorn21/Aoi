@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorIndigo100">#FF6E40</color>
+    <color name="colorIndigo">#3F51B5</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorDeepPurple">#673AB7</color>
+    <color name="colorDeepPurple200">#B39DDB</color>
+    <color name="colorGrey100">#F5F5F5</color>
+    <color name="colorTranslation">#00ffffff</color>
+    <color name="colorBG">#F50057</color>
+    <color name="colorTitleCardView">#4c4c4c</color>
+    <color name="colorBlue100">#BBDEFB</color>
+    <color name="colorTranslation2">#c1000000</color>
+
+
+
+    <color name="colorCyan800">#00838F</color>
+    <color name="colorGreen800">#2E7D32</color>
+    <color name="colorAmber800">#FF8F00</color>
+    <color name="colorOrange800">#EF6C00</color>
+    <color name="colorPurple800">#6A1B9A</color>
+    <color name="colorPink800">#AD1457</color>
+    <color name="colorRed800">#C62828</color>
+    <color name="colorIndigo800">#283593</color>
+    <color name="colorTeal800">#00695C</color>
+    <color name="colorYellow800">#F9A825</color>
+</resources>
