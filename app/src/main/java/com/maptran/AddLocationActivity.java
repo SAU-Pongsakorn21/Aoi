@@ -123,6 +123,7 @@ public class AddLocationActivity extends AppCompatActivity implements  View.OnCl
         Bundle bundle = getIntent().getExtras();
         Latitude = bundle.getDouble("lat");
         Logitude = bundle.getDouble("log");
+
     }
 
     public void AddLocation() {

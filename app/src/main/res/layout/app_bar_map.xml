@@ -18,23 +18,48 @@
             app.popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"/>
+            android:background="?attr/colorAccent"/>
 
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_map"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/myFAB"
-        android:layout_width="@dimen/number50"
-        android:layout_height="@dimen/number50"
+        android:id="@+id/fab_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/number8"
-        android:onClick="addNewNoteFunction"
-        android:src="@drawable/circle24"
-        app:backgroundTint="@color/colorWhite"
-        app:borderWidth="@dimen/number10"
-        app:elevation="@dimen/number5"
+        android:layout_marginBottom="@dimen/number8"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/ic_action_plus"
+        app:pressedTranslationZ="12dp"
+        app:elevation="6dp"
+        app:backgroundTint="@color/colorAccent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/myFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/number72"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        android:src="@drawable/pindrop24_white"
+        app:backgroundTint="@color/colorCyan800"
+        app:elevation="6dp"
         app:rippleColor="@color/colorRed800">
     </android.support.design.widget.FloatingActionButton>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/number72"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/camera_white24"
+        android:visibility="invisible"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:backgroundTint="@color/colorOrange800" />
 </android.support.design.widget.CoordinatorLayout>

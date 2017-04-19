@@ -5,7 +5,7 @@ package com.maptran.util;
  */
 
 public class Contants {
-    public static final String ROOT = "http://192.168.137.216:84/Map/";
+    public static final String ROOT = "http://argeosau.xyz/";
     public static final String ROOT_URL = ROOT + "Operator/showlocation.php";
     public static final String ROOT_URL_ADDLOCATION = ROOT + "Operator/addlocation.php";
     public static final String ROOT_URL_SHEET = ROOT + "Operator/selectsheetlocation.php";

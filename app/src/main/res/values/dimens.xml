@@ -30,6 +30,7 @@
     <dimen name="number3">3dp</dimen>
     <dimen name="number2">2dp</dimen>
     <dimen name="number5">5dp</dimen>
+    <dimen name="number6">6dp</dimen>
     <dimen name="number0">0dp</dimen>
     <dimen name="number30">30dp</dimen>
     <dimen name="number20">20dp</dimen>
@@ -39,4 +40,5 @@
     <dimen name="text_number30">30sp</dimen>
     <dimen name="text_number12">12sp</dimen>
     <dimen name="number50">50dp</dimen>
+    <dimen name="number72">72dp</dimen>
 </resources>

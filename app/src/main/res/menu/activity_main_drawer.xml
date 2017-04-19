@@ -3,16 +3,24 @@
     <group
         android:checkableBehavior="single">
         <item
-            android:id="@+id/drawer_camera_view"
-            android:title="@string/main_txt_cameraview"
-            android:icon="@drawable/camera"/>
+            android:id="@+id/drawer_near_place"
+            android:title="@string/app_drawer_nearplace"
+            android:icon="@drawable/home24_drawer"/>
         <item
-            android:id="@+id/drawer_map_view"
-            android:title="@string/app_map_view"
-            android:icon="@drawable/pindrop24"/>
+            android:id="@+id/drawer_search"
+            android:title="@string/app_search"
+            android:icon="@drawable/search24_drawer"/>
+        <item
+            android:id="@+id/drawer_favourite_place"
+            android:title="@string/app_favorite"
+            android:icon="@drawable/favorite_black_24dp"/>
     </group>
     <item android:title="@string/app_communication">
         <menu>
+            <item
+                android:id="@+id/drawer_help"
+                android:icon="@drawable/help_black_24dp"
+                android:title="@string/app_help"/>
             <item
                 android:id="@+id/drawer_logout"
                 android:icon="@drawable/ic_close_black_48dp"

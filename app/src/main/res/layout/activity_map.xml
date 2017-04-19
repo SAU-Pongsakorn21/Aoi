@@ -24,6 +24,6 @@
         android:layout_marginLeft="-64dp"
         app:itemTextColor="@color/colorBlack"
         app:itemIconTint="@color/colorBlack"
-        app:headerLayout="@layout/nav_header_main"
+        app:headerLayout="@layout/nav_header_map"
         app:menu="@menu/activity_main_drawer" />
 </android.support.v4.widget.DrawerLayout>

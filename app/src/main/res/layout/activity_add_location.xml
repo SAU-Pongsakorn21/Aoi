@@ -11,126 +11,113 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
+    <ScrollView
+        android:layout_margin="@dimen/number8"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
+        android:fillViewport="true">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:text="ชื่อสถานที่ :" />
-
-            <EditText
-                android:id="@+id/edtName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/edtDescription"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="20dp"
-                android:gravity="top|left"
-                android:hint="รายละเอียด"
-                android:lines="7" />
-        </LinearLayout>
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_txt_place_name" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
+                <EditText
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/edtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"/>
+            </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imgImage"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="0"
-                android:src="@drawable/img" />
-
-            <Button
-                android:id="@+id/btnSearch"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:background="#1DE9B6"
-                android:drawableLeft="@drawable/image24"
-                android:paddingLeft="50dp"
-                android:paddingRight="50dp"
-                android:text="เพิ่มรูปภาพ"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center">
+                <EditText
+                    android:id="@+id/edtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|left"
+                    android:hint="@string/add_txt_place_detail"
+                    android:lines="7" />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/btnOk"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginTop="20dp"
-                android:layout_weight="1"
-                android:background="#0091ea"
-                android:drawableLeft="@drawable/save24"
-                android:paddingLeft="60dp"
-                android:paddingRight="60dp"
-                android:text="บันทึก"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btncancle"
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/imgImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/number160"
+                    android:src="@drawable/img"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"/>
+
+                <Button
+                    android:id="@+id/btnSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/number16"
+                    android:paddingTop="@dimen/number8"
+                    android:paddingBottom="@dimen/number8"
+                    android:drawableTop="@drawable/image24"
+                    android:background="@color/colorGreen800"
+                    android:text="@string/app_add_image"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/number8"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="20dp"
-                android:layout_weight="1"
-                android:background="#0091ea"
-                android:drawableLeft="@drawable/close24"
-                android:paddingLeft="60dp"
-                android:paddingRight="60dp"
-                android:text="ยกเลิก"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
+                android:weightSum="2"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnOk"
+                    android:layout_width="@dimen/number0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/save24"
+                    android:text="บันทึก"
+                    android:padding="@dimen/number8"
+                    android:layout_marginRight="@dimen/number8"
+                    android:background="@color/colorCyan800"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:padding="@dimen/number8"
+                    android:id="@+id/btncancle"
+                    android:layout_width="@dimen/number0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/close24"
+                    android:text="@string/app_cancel"
+                    android:background="@color/colorCyan800"
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>
 

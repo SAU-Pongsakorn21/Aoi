@@ -7,5 +7,5 @@
         android:id="@+id/ToolbarAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#aa00ff"/>
+        android:background="@color/colorAccent"/>
 </LinearLayout>

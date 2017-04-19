@@ -33,6 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.maptran.MapActivity;
 import com.raw.arview.utils.Compatibility;
 import com.raw.arview.utils.MyCurrentLocation;
 import com.raw.arview.utils.OnLocationChangedListener;
@@ -42,8 +43,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import sau.comsci.com.aoi.AddLocationActivity;
-import sau.comsci.com.aoi.MainActivity;
 import sau.comsci.com.aoi.R;
 import sau.comsci.com.aoi.Register_Activity;
 
@@ -210,7 +209,7 @@ public class ARView extends AppCompatActivity implements OnLocationChangedListen
         }
         else
         {
-            count = Integer.parseInt(String.valueOf(bundle.get("result")));
+            count = Integer.parseInt(String.valueOf(bundle.get("result")).replace("\"",""));
             A_Lat = String.valueOf(bundle.get("myLat"));
             A_Long = String.valueOf(bundle.get("myLong"));
             A_placename = String.valueOf(bundle.get("name_place"));
@@ -359,13 +358,13 @@ public class ARView extends AppCompatActivity implements OnLocationChangedListen
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.menu_main) {
-                    Intent intent = new Intent(ARView.this, MainActivity.class);
+                    Intent intent = new Intent(ARView.this, MapActivity.class);
                     startActivity(intent);
                     finish();
                 } else if (item.getItemId() == R.id.menu_add) {
-                    Intent intent = new Intent(ARView.this, AddLocationActivity.class);
-                    intent.putExtra("Latitude", mMyLatitude);
-                    intent.putExtra("Longitude", mMyLongitude);
+                    Intent intent = new Intent(ARView.this, com.maptran.AddLocationActivity.class);
+                    intent.putExtra("lat", mMyLatitude);
+                    intent.putExtra("log", mMyLongitude);
                     intent.putExtra("place_id",A_id_place);
                     startActivity(intent);
                 } else if (item.getItemId() == R.id.menu_register) {
