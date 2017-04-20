@@ -10,4 +10,5 @@ public class Contants {
     public static final String ROOT_URL_ADDLOCATION = ROOT + "Operator/addlocation.php";
     public static final String ROOT_URL_SHEET = ROOT + "Operator/selectsheetlocation.php";
     public static final String ROOT_URL_DELETE = ROOT + "Operator/deletelocation.php";
+    public static final String ROOT_URL_LOAD_IMAGE = ROOT +"Operator/getImage.php";
 }

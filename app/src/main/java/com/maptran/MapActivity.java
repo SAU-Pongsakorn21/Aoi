@@ -402,7 +402,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 progressDialog.show();
                 delete();
-
+                recreate();
             }
         });
     }
@@ -527,7 +527,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
         else if(id == R.id.drawer_search)
         {
-            intent =new Intent(this, MainActivity.class);
+            intent =new Intent(this, SearchActivity.class);
             startActivityForResult(intent,456);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_map);

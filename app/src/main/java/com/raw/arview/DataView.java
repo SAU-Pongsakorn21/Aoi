@@ -391,7 +391,7 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
         TextView txt_title = (TextView) dialog.findViewById(R.id.dtl_txt_title);
         txt_title.setText(namePlace[v.getId()-1]);
         TextView txt_detail = (TextView) dialog.findViewById(R.id.dtl_txt_show);
-        txt_detail.setText("ระยะทาง : " + distance[v.getId()-1]);
+        txt_detail.setText("ระยะทาง : " + distance[v.getId()-1]+"เมตร");
         Button btnClose = (Button) dialog.findViewById(R.id.dtl_btn_close);
         dialog.setCancelable(false);
         keepView = v.getId()-1;

@@ -3,7 +3,6 @@ package com.maptran;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
 import com.kosalgeek.android.photoutil.ImageBase64;
-import com.kosalgeek.android.photoutil.ImageLoader;
+import com.kosalgeek.android.photoutil.PhotoLoader;
 import com.maptran.util.Contants;
 import com.maptran.util.RequestHandler;
 
@@ -97,13 +96,12 @@ public class AddLocationActivity extends AppCompatActivity implements  View.OnCl
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == GALLERY_REQUEST) {
-                Uri uri = data.getData();
-                galleryPhoto.setPhotoUri(uri);
+                galleryPhoto.setPhotoUri(data.getData());
                 photopath = galleryPhoto.getPath();
                 selectephoto = photopath;
 
                 try {
-                    bitmap = ImageLoader.init().from(photopath).requestSize(512, 512).getBitmap();
+                    bitmap = PhotoLoader.init().from(photopath).requestSize(512,512).getBitmap();
                     imgImage.setImageBitmap(bitmap);
                 } catch (FileNotFoundException e) {
                     Toast.makeText(getApplicationContext(), "ERROR WHILE LOADING IMAGE", Toast.LENGTH_SHORT).show();
@@ -128,7 +126,7 @@ public class AddLocationActivity extends AppCompatActivity implements  View.OnCl
 
     public void AddLocation() {
         try {
-            bitmap = ImageLoader.init().from(selectephoto).requestSize(640, 480).getBitmap();
+            bitmap = PhotoLoader.init().from(photopath).requestSize(512,512).getBitmap();
             encodeImage = ImageBase64.encode(bitmap);
 
         } catch (FileNotFoundException e) {
@@ -146,7 +144,7 @@ public class AddLocationActivity extends AppCompatActivity implements  View.OnCl
                         Toast.makeText(getApplicationContext(), "ชื่อสถานที่ซ้ำกัน", Toast.LENGTH_SHORT).show();
 
                     } else if (jsonObject.getBoolean("status") == true) {
-                        startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                        startActivityForResult(new Intent(getApplicationContext(), MapActivity.class),50);
                         finish();
                         progressDialog.dismiss();
                     } else {

@@ -14,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.maptran.MapActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if(SharedPrefManager.getInstance(this).isLoggedIn() == true)
         {
-            Intent intent = new Intent(this,MainActivity.class);
+            Intent intent = new Intent(this, MapActivity.class);
             startActivity(intent);
             finish();
         }
@@ -81,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         jsonObject.getInt("user_id"), jsonObject.getString("user_username"), jsonObject.getString("user_email")
                                 );
                                 Toast.makeText(getApplicationContext(),"User login successful",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this,MapActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
