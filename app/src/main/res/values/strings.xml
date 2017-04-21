@@ -2,7 +2,7 @@
     <string name="app_name">Aoi</string>
     <string name="detail_txt_title">ชื่อสถานที่</string>
     <string name="detail_txt_show">ระยะทาง</string>
-    <string name="detail_btn_extra">รายระเอียดเพิ่มเติม คลิกที่นี่...</string>
+    <string name="detail_btn_extra">รายละเอียดเพิ่มเติม คลิกที่นี่...</string>
     <string name="add_txt_title1">ชื่อสถานที่</string>
     <string name="rgt_txt_username">Username</string>
     <string name="rgt_txt_password">Password</string>

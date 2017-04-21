@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -14,15 +15,19 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.raw.arview.utils.Camera;
 import com.raw.arview.utils.LocationPlace;
 import com.raw.arview.utils.PaintUtils;
 import com.raw.arview.utils.RadarLine;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Random;
 
 import sau.comsci.com.aoi.R;
 import sau.comsci.com.aoi.ShowExtraDetail;
@@ -120,6 +125,8 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
             }
         }
 
+
+
         namePlace = subStringName(sharedPreferences.getString("A_placename",""));
         locationMarkerView = new RelativeLayout[c_count];
         layoutParamses = new RelativeLayout.LayoutParams[c_count];
@@ -142,7 +149,26 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
             locationTextView[i].setText(checkTextToDisplay(namePlace[i]));
             locationTextView[i].setTextColor(Color.WHITE);
             locationTextView[i].setSingleLine();
-            subjectImageView[i].setBackgroundResource(R.drawable.place48white);
+
+            int rdm = random(i);
+
+            if(rdm == 0)
+            {
+                subjectImageView[i].setBackgroundResource(R.drawable.ic_cafe);
+            }
+            else if(rdm ==1)
+            {
+                subjectImageView[i].setBackgroundResource(R.drawable.ic_restaurant);
+            }
+            else if(rdm ==2)
+            {
+                subjectImageView[i].setBackgroundResource(R.drawable.ic_shopping);
+            }
+            else
+            {
+                subjectImageView[i].setBackgroundResource(R.drawable.place48white);
+            }
+
 
             subjectImageView[i].setId(R.id.ImageViewID);
             locationTextView[i].setId(R.id.TextViewID);
@@ -156,7 +182,7 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
             subjectImageViewParams[i].addRule(RelativeLayout.ALIGN_PARENT_TOP,RelativeLayout.TRUE);
             subjectTextViewParams[i].addRule(RelativeLayout.RIGHT_OF,subjectImageView[i].getId());
             subjectTextViewParams[i].addRule(RelativeLayout.ALIGN_BASELINE,subjectImageView[i].getId());
-
+            subjectImageViewParams[i].setMargins(16,16,16,16);
             locationMarkerView[i].setLayoutParams(layoutParamses[i]);
             locationMarkerView[i].addView(subjectImageView[i],subjectImageViewParams[i]);
             locationMarkerView[i].addView(locationTextView[i],subjectTextViewParams[i]);
@@ -187,6 +213,7 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
 
         isInit = true;
         isClick = true;
+
     }
 
     public void draw(PaintUtils dw, float yaw, float pitch, float roll, int count, SharedPreferences sharedPreferences) {
@@ -379,7 +406,6 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
         value2 = distance[v.getId()-1];
         locationMarkerView[v.getId()-1].setBackgroundResource(isClick ? R.drawable.shape_marker : R.drawable.shape_marker_click);
 
-
         final Dialog dialog = new Dialog(_context);
         Window window = dialog.getWindow();
         window.setGravity(Gravity.BOTTOM);
@@ -391,7 +417,17 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
         TextView txt_title = (TextView) dialog.findViewById(R.id.dtl_txt_title);
         txt_title.setText(namePlace[v.getId()-1]);
         TextView txt_detail = (TextView) dialog.findViewById(R.id.dtl_txt_show);
-        txt_detail.setText("ระยะทาง : " + distance[v.getId()-1]+"เมตร");
+        txt_detail.setText("ระยะทาง : " +new DecimalFormat("#,####.00").format(distance[v.getId()-1])+"เมตร");
+
+
+        VideoView vdo_view = (VideoView) dialog.findViewById(R.id.dtl_vdo_view);
+        vdo_view.setVideoURI(Uri.parse("http://argeosau.xyz/Upload/Clean%20Bandit%20-%20Symphony%20feat.%20Zara%20Larsson%20%5bOfficial%20Video%5d.mp4"));
+        vdo_view.setMediaController(new MediaController(_context));
+        vdo_view.setBackgroundColor(Color.TRANSPARENT);
+        vdo_view.requestFocus();
+        vdo_view.start();
+
+
         Button btnClose = (Button) dialog.findViewById(R.id.dtl_btn_close);
         dialog.setCancelable(false);
         keepView = v.getId()-1;
@@ -526,5 +562,14 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
             }
         }
         return text;
+    }
+
+    public int random(int count)
+    {
+        Random rn = new Random();
+        int n = count+1;
+        int i = rn.nextInt() %n;
+        int rdm = count - i;
+        return rdm;
     }
 }
