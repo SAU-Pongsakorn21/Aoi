@@ -288,9 +288,9 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
             if (isLocationBlock) {
                 if (distance[count] < 500) {
                     if (mark_position == position[count]) {
-                        addY = 100;
+                        addY = 20;
                     } else {
-                        addY = 100;
+                        addY = 20;
                         if (distance[count] < 500) {
                             mark_position = position[count];
                         }
