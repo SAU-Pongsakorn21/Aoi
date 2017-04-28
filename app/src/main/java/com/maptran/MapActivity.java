@@ -1,6 +1,8 @@
 package com.maptran;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
@@ -68,8 +70,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import sau.comsci.com.aoi.LoginActivity;
 import sau.comsci.com.aoi.R;
 import sau.comsci.com.aoi.Register_Activity;
+import sau.comsci.com.aoi.SharedPrefManager;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, com.google.android.gms.location.LocationListener, NavigationView.OnNavigationItemSelectedListener{
 
@@ -80,6 +84,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private String LocationName;
     private Double Longitude;
     private Double Latitude;
+    private String TypeLocation;
+    private String TypeLocationColor;
     //-----------------------------------
     //นำค่าจาก json มาเก็บไว้
     private String getLocationName;
@@ -87,7 +93,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Double getLongitude;
     private String getDescription;
     private String getPhotoUrl;
-    private String mLat,mLong,mIdplace,mNamePlace,mResult; // ตัวแปร เก็บ Callback ส่งไปให้ Ar
+    private String mLat,mLong,mIdplace,mNamePlace,mResult,mType; // ตัวแปร เก็บ Callback ส่งไปให้ Ar
     //--------------------------------------------
     //สร้างตัวเเปลมาเก็บค่าที่ได้จาก ตำเเหน่งของเครื่อง จาก Class TackGPS
     TackGPS gps;
@@ -130,14 +136,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     LatLng latLng;
 
     //---------------------------------- json Response AR view.
-    String place_id, place_name, place_detail, user_username;
-    public List<String> namePlace, id_place;
+    String place_id, place_name, place_detail, user_username,place_type;
+    public List<String> namePlace, id_place, type_place;
     public List<Double> myLat, myLong;
     public double place_latitude, place_longitude;
     public Gson gson = new Gson();
     public int count = 0;
     //----------------------------------
-
     ImageView nav_image;
 
     @Override
@@ -162,16 +167,25 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         fabCamera.setOnClickListener(this);
 
 
-        Toolbar();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_map);
+        toolbar.setTitle("Near Place");
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_map);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+
+        toggle.syncState();
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         TextView nav_text = (TextView) headerView.findViewById(R.id.nav_txt);
+        TextView nav_email = (TextView) headerView.findViewById(R.id.nav_email);
         nav_image = (ImageView) headerView.findViewById(R.id.nav_image);
         nav_image.setImageBitmap(BitmapFactory.decodeResource(this.getResources(),R.drawable.add));
-        nav_text.setText("ffffffffff");
-
+        nav_text.setText(SharedPrefManager.getInstance(getApplication()).getUsername());
+        nav_email.setText(SharedPrefManager.getInstance(getApplication()).getUserEmail());
         navigationView.setNavigationItemSelectedListener(this);
 
         progressDialog = new ProgressDialog(this);
@@ -186,12 +200,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onResume();
         getDataFromServer(new VolleyCallback() {
             @Override
-            public void onSuccessResponse(String result, List<Double> Lat, List<Double> Long, List<String> place, List<String> id_place) {
+            public void onSuccessResponse(String result, List<Double> Lat, List<Double> Long, List<String> place, List<String> id_place,List<String>type) {
                 mResult = gson.toJson(result).toString();
                 mLat = gson.toJson(Lat).toString();
                 mLong = gson.toJson(Long).toString();
                 mIdplace = gson.toJson(id_place).toString();
                 mNamePlace = gson.toJson(namePlace).toString();
+                mType = gson.toJson(type).toString();
             }
         });
     }
@@ -199,7 +214,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-
+        TypeLocation="5";
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.setPadding(0,0,0,300);
         ShowMarker();
@@ -253,14 +268,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         bottomSheetDialog.dismiss();
                         progressDialog.dismiss();
                         googleMap.clear();
+                        recreate();
+                        Toast.makeText(getApplicationContext(),jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
 
                     } else {
                         progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "ลบข้อมูลผิดพลาด", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                TypeLocation = "5";
                 ShowMarker();
 
             }
@@ -274,6 +292,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("LocationID", getLocatioId);
+                params.put("user_name",SharedPrefManager.getInstance(getApplication()).getUsername());
                 return params;
             }
         };
@@ -282,36 +301,58 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     public void ShowMarker() {
         final IconGenerator iconGenerator = new IconGenerator(this);
-        JsonArrayRequest arrayRequest = new JsonArrayRequest(Contants.ROOT_URL,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject jsonObject = (JSONObject) response.get(i);
-                                LocationId = jsonObject.getString("LocationID");
-                                Latitude = jsonObject.getDouble("Latitude");
-                                Longitude = jsonObject.getDouble("Longitude");
-                                LocationName = jsonObject.getString("LocationName");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Contants.ROOT_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
 
-                                iconGenerator.setStyle(IconGenerator.STYLE_ORANGE);
-                                Marker marker = googleMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(Latitude, Longitude))
-                                        .title(LocationName).icon(BitmapDescriptorFactory.fromBitmap(iconGenerator.makeIcon(LocationName))));
-                                marker.setSnippet(LocationId);
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
 
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        LocationId = jsonObject.getString("LocationID");
+                        Latitude = jsonObject.getDouble("Latitude");
+                        Longitude = jsonObject.getDouble("Longitude");
+                        LocationName = jsonObject.getString("LocationName");
+                        TypeLocationColor = jsonObject.getString("TypeLocation");
+
+                        if(TypeLocationColor.equals("1")){
+                            iconGenerator.setStyle(IconGenerator.STYLE_GREEN);
+
+                        }else if(TypeLocationColor.equals("2")){
+                            iconGenerator.setStyle(IconGenerator.STYLE_RED);
+                        }else if(TypeLocationColor.equals("3")){
+                            iconGenerator.setStyle(IconGenerator.STYLE_BLUE);
+
+                        }else if(TypeLocationColor.equals("4")){
+                            iconGenerator.setStyle(IconGenerator.STYLE_WHITE);
+
                         }
+                        Marker marker = googleMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(Latitude, Longitude))
+                                .title(LocationName).icon(BitmapDescriptorFactory.fromBitmap(iconGenerator.makeIcon(LocationName))));
+                        marker.setSnippet(LocationId);
+
                     }
-                }, new Response.ErrorListener() {
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
-        RequestHandler.getInstance(this).addToRequestQueue(arrayRequest);
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("TypeLocation", TypeLocation);
+                return params;
+            }
+        };
+        RequestHandler.getInstance(this).addToRequestQueue(stringRequest);
         googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker arg0) {
@@ -400,8 +441,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog.show();
-                delete();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(MapActivity.this);
+                alertDialog.setTitle("ยืนยัน");
+                alertDialog.setMessage("คุณต้องการลบสถานที่หรือไม่");
+
+                alertDialog.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        progressDialog.show();
+                        delete();
+                    }
+                });
+                alertDialog.setPositiveButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                alertDialog.show();
                 recreate();
             }
         });
@@ -422,17 +478,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
-    public void Toolbar() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_map);
-        toolbar.setTitle("Near Place");
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_map);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-    }
 
     public void address() {
         geocoder = new Geocoder(this, Locale.getDefault());
@@ -498,6 +544,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             intent.putExtra("myLong", mLong);
             intent.putExtra("id_place",mIdplace);
             intent.putExtra("name_place",mNamePlace);
+            intent.putExtra("type",mType);
             this.startActivity(intent);
             finish();
         }
@@ -530,6 +577,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             intent =new Intent(this, SearchActivity.class);
             startActivityForResult(intent,456);
         }
+        else if(id == R.id.drawer_logout)
+        {
+            SharedPrefManager.getInstance(getApplicationContext()).logout();
+            intent = new Intent(MapActivity.this,LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_map);
         drawer.closeDrawer(GravityCompat.START);
 
@@ -548,18 +602,41 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menumain, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            // action with ID action_refresh was selected
+            case R.id.DepartmentStore:
+                TypeLocation = "1";
+                googleMap.clear();
+                ShowMarker();
+                break;
+            case R.id.CoffeeShop:
+                TypeLocation = "2";
+                googleMap.clear();
+                ShowMarker();
+                break;
+            case R.id.Restaurant:
+                TypeLocation = "3";
+                googleMap.clear();
+                ShowMarker();
+                break;
+            case R.id.GeneralPlace:
+                TypeLocation = "4";
+                googleMap.clear();
+                ShowMarker();
+                break;
+            case R.id.AllLocations:
+                TypeLocation = "5";
+                googleMap.clear();
+                ShowMarker();
+                break;
+        }
+        return true;
     }
 
     public void getDataFromServer(final VolleyCallback callback)
@@ -568,6 +645,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         myLong = new ArrayList<Double>();
         namePlace = new ArrayList<String>();
         id_place = new ArrayList<String>();
+        type_place = new ArrayList<String>();
         JsonArrayRequest jsRequest = new JsonArrayRequest(Contants.ROOT_URL,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -580,10 +658,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             place_latitude = 0.0;
                             place_longitude = 0.0;
                             user_username = "null_user";
+                            place_type = "0";
                             myLat.add(place_latitude);
                             myLong.add(place_longitude);
                             namePlace.add(place_name);
                             id_place.add(place_id);
+                            type_place.add(place_type);
                         } else {
                             try {
                                 for (int i = 0; i < response.length(); i++) {
@@ -593,14 +673,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     place_detail = jsObj.getString("LocationDescription");
                                     place_latitude = jsObj.getDouble("Latitude");
                                     place_longitude = jsObj.getDouble("Longitude");
+                                    place_type = jsObj.getString("TypeLocation");
                                     myLat.add(place_latitude);
                                     myLong.add(place_longitude);
                                     namePlace.add(place_name);
                                     id_place.add(place_id);
+                                    type_place.add(place_type);
                                 }
                                 count = myLat.size();
                                 Log.d("count",""+myLat+"\ncount"+count);
-                                callback.onSuccessResponse(String.valueOf(count), myLat, myLong, namePlace, id_place);
+                                callback.onSuccessResponse(String.valueOf(count), myLat, myLong, namePlace, id_place,type_place);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } finally {

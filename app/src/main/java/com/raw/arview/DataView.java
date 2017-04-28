@@ -27,7 +27,6 @@ import com.raw.arview.utils.RadarLine;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Random;
 
 import sau.comsci.com.aoi.R;
 import sau.comsci.com.aoi.ShowExtraDetail;
@@ -99,6 +98,7 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
 
     String value1;
     double value2;
+    String[] type;
 
     public DataView(Context ctx) {
         this._context = ctx;
@@ -113,7 +113,7 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
 
         c_count = sharedPreferences.getInt("count",0);
         String[] idPlace = subStringName(sharedPreferences.getString("A_id_place",""));
-
+        type = subStringName(sharedPreferences.getString("A_type",""));
         if(idPlace.length != 1)
         {
             for(int i=0;i<idPlace.length;i++)
@@ -150,23 +150,14 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
             locationTextView[i].setTextColor(Color.WHITE);
             locationTextView[i].setSingleLine();
 
-            int rdm = random(i);
 
-            if(rdm == 0)
+            if(type[i].equals("1"))
             {
-                subjectImageView[i].setBackgroundResource(R.drawable.ic_cafe);
-            }
-            else if(rdm ==1)
-            {
-                subjectImageView[i].setBackgroundResource(R.drawable.ic_restaurant);
-            }
-            else if(rdm ==2)
-            {
-                subjectImageView[i].setBackgroundResource(R.drawable.ic_shopping);
+                subjectImageView[i].setBackgroundResource(R.drawable.place48white);
             }
             else
             {
-                subjectImageView[i].setBackgroundResource(R.drawable.place48white);
+                subjectImageView[i].setBackgroundResource(R.drawable.ic_store);
             }
 
 
@@ -564,12 +555,12 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
         return text;
     }
 
-    public int random(int count)
+    /*public int random(int count)
     {
         Random rn = new Random();
         int n = count+1;
         int i = rn.nextInt() %n;
         int rdm = count - i;
         return rdm;
-    }
+    }*/
 }

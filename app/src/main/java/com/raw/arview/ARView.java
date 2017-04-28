@@ -87,7 +87,7 @@ public class ARView extends AppCompatActivity implements OnLocationChangedListen
 
 
 
-    String A_Lat, A_Long,A_placename,A_placeDetail,A_id_place;
+    String A_Lat, A_Long,A_placename,A_placeDetail,A_id_place,A_type;
     public int count = 0;
     public SharedPreferences sharedPreferences;
     public Gson gson = new Gson();
@@ -196,7 +196,7 @@ public class ARView extends AppCompatActivity implements OnLocationChangedListen
             A_Long = "0";
             A_placename = "No name";
             A_id_place = "0";
-
+            A_type = "0";
 
             sharedPreferences = getPreferences(MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -205,6 +205,7 @@ public class ARView extends AppCompatActivity implements OnLocationChangedListen
             editor.putString("A_Long",A_Long);
             editor.putString("A_placename",A_placename);
             editor.putString("A_id_place",A_id_place);
+            editor.putString("A_type",A_type);
             editor.commit();
         }
         else
@@ -214,7 +215,7 @@ public class ARView extends AppCompatActivity implements OnLocationChangedListen
             A_Long = String.valueOf(bundle.get("myLong"));
             A_placename = String.valueOf(bundle.get("name_place"));
             A_id_place = String.valueOf(bundle.get("id_place"));
-
+            A_type = String.valueOf(bundle.get("type"));
 
             sharedPreferences = getPreferences(MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -223,6 +224,7 @@ public class ARView extends AppCompatActivity implements OnLocationChangedListen
             editor.putString("A_Long",A_Long);
             editor.putString("A_placename",A_placename);
             editor.putString("A_id_place",A_id_place);
+            editor.putString("A_type",A_type);
             editor.commit();
 
 

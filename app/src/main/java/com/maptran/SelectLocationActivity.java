@@ -118,7 +118,7 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
+        inflater.inflate(R.menu.mainselect, menu);
         return true;
     }
 

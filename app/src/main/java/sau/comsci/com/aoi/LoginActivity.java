@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText edt_username, edt_password;
     private Button btn_login;
     private ProgressDialog progressDialog;
+    private TextView txt_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +41,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         edt_username = (EditText) findViewById(R.id.login_username);
         edt_password = (EditText) findViewById(R.id.login_password);
         btn_login = (Button) findViewById(R.id.login_login);
+        txt_register = (TextView) findViewById(R.id.txt_register);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
 
 
         btn_login.setOnClickListener(this);
+        txt_register.setOnClickListener(this);
 
         if(SharedPrefManager.getInstance(this).isLoggedIn() == true)
         {
@@ -62,6 +66,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         {
             userLogin();
 
+        }
+        else if(view == txt_register)
+        {
+            Intent intent = new Intent(LoginActivity.this,Register_Activity.class);
+            startActivity(intent);
+            finish();
         }
     }
     private void userLogin() {

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/DepartmentStore"
+        android:title="ห้างสรรพสินค้า" />
+
+    <item
+        android:id="@+id/CoffeeShop"
+        android:title="ร้านกาเเฟ"/>
+
+    <item
+        android:id="@+id/Restaurant"
+        android:title="ร้านอาหาร" />
+
+    <item
+        android:id="@+id/GeneralPlace"
+        android:title="สถานที่ทั่วไป" />
+    <item
+        android:id="@+id/AllLocations"
+        android:title="เเสดงทั้งหมด"/>
+</menu>

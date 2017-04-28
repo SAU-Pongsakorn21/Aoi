@@ -116,7 +116,10 @@ public class Register_Activity extends AppCompatActivity implements View.OnClick
         switch (item.getItemId())
         {
             case android.R.id.home:
-                onBackPressed();
+                //onBackPressed();
+                Intent intent = new Intent(Register_Activity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
