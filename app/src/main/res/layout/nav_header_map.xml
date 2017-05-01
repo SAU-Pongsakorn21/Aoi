@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="@dimen/number192"
-    android:background="@color/colorPrimary"
+    android:layout_height="@dimen/number100"
+    android:background="@drawable/cover"
     android:gravity="bottom"
     android:paddingBottom="@dimen/view_margin_16dp"
     android:paddingLeft="@dimen/view_margin_16dp"
     android:paddingTop="@dimen/view_margin_16dp"
     android:paddingRight="@dimen/view_margin_16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-    <ImageView
-        android:id="@+id/nav_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/view_margin_16dp"
-        android:src="@android:drawable/sym_def_app_icon" />
     <TextView
         android:id="@+id/nav_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/view_margin_16dp"
         android:text="@string/app_navheader"
+        android:textSize="@dimen/text_number15"
+        android:textColor="@color/colorBlack"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
     <TextView
         android:id="@+id/nav_txt"
+        android:textSize="@dimen/text_number12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorBlack"
         android:text="@string/app_navheader2"/>
 </LinearLayout>

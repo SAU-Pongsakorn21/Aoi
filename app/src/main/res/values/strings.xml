@@ -33,13 +33,14 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="app_communication">Communication</string>
-    <string name="app_add_image">เพิ่มรูปภาพ</string>
+    <string name="app_add_image">เพิ่มภาพ</string>
+    <string name="app_add_video">เพิ่มวิดีโอ</string>
     <string name="app_cancel">ยกเลิก</string>
     <string name="app_drawer_nearplace">Near place</string>
     <string name="app_search">Search</string>
     <string name="app_favorite">Favorite</string>
     <string name="app_help">Help</string>
-    <string name="app_type">ประเภท</string>
+    <string name="app_type">ประเภท : </string>
 
 
     <string-array name="type">

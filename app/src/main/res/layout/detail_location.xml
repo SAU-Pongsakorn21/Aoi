@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="560dp"
-    android:layout_height="250dp"
+    android:layout_height="260dp"
     android:background="@color/colorGrey100">
     <ImageView
         android:id="@+id/dtl_img_place"
-        android:layout_width="@dimen/detail_image_48dp"
-        android:layout_height="@dimen/detail_image_48dp"
+        android:layout_width="@dimen/number144"
+        android:layout_height="@dimen/number144"
         android:layout_margin="@dimen/view_margin_16dp"
+        android:layout_alignParentTop="true"
         android:src="@drawable/ic_place_black_48dp" />
     <ScrollView
         android:layout_width="match_parent"
@@ -52,12 +53,28 @@
                 android:textColor="@color/colorIndigo100"
                 android:textStyle="bold" />
 
-            <VideoView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/dtl_vdo_view"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/number250"
                 android:layout_marginBottom="@dimen/number16"
-                android:layout_marginRight="@dimen/number48"/>
+                android:layout_marginRight="@dimen/number48">
+                <VideoView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/dtl_vdo_view" />
+                <ImageButton
+                    android:id="@+id/img_play_pause"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ic_play"
+                    android:background="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/number8"/>
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/number8"/>
         </LinearLayout>
     </ScrollView>
     <Button

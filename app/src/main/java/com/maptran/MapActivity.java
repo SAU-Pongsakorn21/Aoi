@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -70,9 +69,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import sau.comsci.com.aoi.FavoriteActivity;
 import sau.comsci.com.aoi.LoginActivity;
 import sau.comsci.com.aoi.R;
-import sau.comsci.com.aoi.Register_Activity;
 import sau.comsci.com.aoi.SharedPrefManager;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, com.google.android.gms.location.LocationListener, NavigationView.OnNavigationItemSelectedListener{
@@ -93,7 +92,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Double getLongitude;
     private String getDescription;
     private String getPhotoUrl;
-    private String mLat,mLong,mIdplace,mNamePlace,mResult,mType; // ตัวแปร เก็บ Callback ส่งไปให้ Ar
+    private String mLat,mLong,mIdplace,mNamePlace,mResult,mType,mPhoto,mVDO; // ตัวแปร เก็บ Callback ส่งไปให้ Ar
     //--------------------------------------------
     //สร้างตัวเเปลมาเก็บค่าที่ได้จาก ตำเเหน่งของเครื่อง จาก Class TackGPS
     TackGPS gps;
@@ -136,8 +135,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     LatLng latLng;
 
     //---------------------------------- json Response AR view.
-    String place_id, place_name, place_detail, user_username,place_type;
-    public List<String> namePlace, id_place, type_place;
+    String place_id, place_name, place_detail, user_username,place_type,place_photo;
+    String vdo_path;
+    public List<String> namePlace, id_place, type_place,photo,video;
     public List<Double> myLat, myLong;
     public double place_latitude, place_longitude;
     public Gson gson = new Gson();
@@ -182,10 +182,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         View headerView = navigationView.getHeaderView(0);
         TextView nav_text = (TextView) headerView.findViewById(R.id.nav_txt);
         TextView nav_email = (TextView) headerView.findViewById(R.id.nav_email);
-        nav_image = (ImageView) headerView.findViewById(R.id.nav_image);
-        nav_image.setImageBitmap(BitmapFactory.decodeResource(this.getResources(),R.drawable.add));
-        nav_text.setText(SharedPrefManager.getInstance(getApplication()).getUsername());
-        nav_email.setText(SharedPrefManager.getInstance(getApplication()).getUserEmail());
+        nav_text.setText("Username : "+SharedPrefManager.getInstance(getApplication()).getUsername());
+        nav_email.setText("E-mail : "+SharedPrefManager.getInstance(getApplication()).getUserEmail());
         navigationView.setNavigationItemSelectedListener(this);
 
         progressDialog = new ProgressDialog(this);
@@ -200,13 +198,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onResume();
         getDataFromServer(new VolleyCallback() {
             @Override
-            public void onSuccessResponse(String result, List<Double> Lat, List<Double> Long, List<String> place, List<String> id_place,List<String>type) {
+            public void onSuccessResponse(String result, List<Double> Lat, List<Double> Long, List<String> place, List<String> id_place,List<String>type
+            ,List<String> L_photo,List<String> L_video) {
                 mResult = gson.toJson(result).toString();
                 mLat = gson.toJson(Lat).toString();
                 mLong = gson.toJson(Long).toString();
                 mIdplace = gson.toJson(id_place).toString();
                 mNamePlace = gson.toJson(namePlace).toString();
                 mType = gson.toJson(type).toString();
+                mPhoto = gson.toJson(L_photo).toString();
+                mVDO = gson.toJson(L_video).toString();
             }
         });
     }
@@ -545,6 +546,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             intent.putExtra("id_place",mIdplace);
             intent.putExtra("name_place",mNamePlace);
             intent.putExtra("type",mType);
+            intent.putExtra("vdo",mVDO);
+            intent.putExtra("photo",mPhoto);
             this.startActivity(intent);
             finish();
         }
@@ -569,12 +572,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
         else if(id == R.id.drawer_favourite_place)
         {
-            intent = new Intent(this, Register_Activity.class);
+            intent = new Intent(this, FavoriteActivity.class);
             startActivityForResult(intent,123);
         }
         else if(id == R.id.drawer_search)
         {
-            intent =new Intent(this, SearchActivity.class);
+            intent =new Intent(this,SearchActivity.class);
             startActivityForResult(intent,456);
         }
         else if(id == R.id.drawer_logout)
@@ -646,6 +649,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         namePlace = new ArrayList<String>();
         id_place = new ArrayList<String>();
         type_place = new ArrayList<String>();
+        photo = new ArrayList<String>();
+        video = new ArrayList<String>();
         JsonArrayRequest jsRequest = new JsonArrayRequest(Contants.ROOT_URL,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -659,11 +664,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             place_longitude = 0.0;
                             user_username = "null_user";
                             place_type = "0";
+                            place_photo = "no value";
+                            vdo_path = "no value";
                             myLat.add(place_latitude);
                             myLong.add(place_longitude);
                             namePlace.add(place_name);
                             id_place.add(place_id);
                             type_place.add(place_type);
+                            photo.add(place_photo);
+                            video.add(vdo_path);
+
                         } else {
                             try {
                                 for (int i = 0; i < response.length(); i++) {
@@ -674,15 +684,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     place_latitude = jsObj.getDouble("Latitude");
                                     place_longitude = jsObj.getDouble("Longitude");
                                     place_type = jsObj.getString("TypeLocation");
+                                    place_photo = jsObj.getString("LocationPhoto");
+                                    vdo_path = jsObj.getString("VideoPath");
                                     myLat.add(place_latitude);
                                     myLong.add(place_longitude);
                                     namePlace.add(place_name);
                                     id_place.add(place_id);
                                     type_place.add(place_type);
+                                    photo.add(place_photo);
+                                    video.add(vdo_path);
                                 }
                                 count = myLat.size();
                                 Log.d("count",""+myLat+"\ncount"+count);
-                                callback.onSuccessResponse(String.valueOf(count), myLat, myLong, namePlace, id_place,type_place);
+                                callback.onSuccessResponse(String.valueOf(count), myLat, myLong, namePlace, id_place,type_place,photo,video);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } finally {

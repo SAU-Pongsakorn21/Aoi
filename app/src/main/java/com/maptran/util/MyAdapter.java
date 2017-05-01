@@ -1,6 +1,7 @@
 package com.maptran.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import sau.comsci.com.aoi.R;
+import sau.comsci.com.aoi.ShowExtraDetail;
 
 /**
  * Created by KorPai on 19/4/2560.
@@ -67,6 +69,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> implements Filtera
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {
+                Intent intent = new Intent(v.getContext(), ShowExtraDetail.class);
+                v.getContext().startActivity(intent);
             }
         });
     }

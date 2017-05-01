@@ -1,139 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.maptran.AddLocationActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include
-        layout="@layout/toolbar_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <ScrollView
-        android:layout_margin="@dimen/number8"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
-        <LinearLayout
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        tools:context="com.maptran.AddLocationActivity">
+        <include
+            android:id="@+id/p_toolbar_add"
+            layout="@layout/toolbar_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ScrollView
+            android:layout_below="@id/p_toolbar_add"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:fillViewport="true">
             <LinearLayout
+                android:layout_marginLeft="@dimen/number8"
+                android:layout_marginRight="@dimen/number8"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_txt_place_name" />
-
-                <EditText
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/edtName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/edtDescription"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="top|left"
-                    android:hint="@string/add_txt_place_detail"
-                    android:lines="7" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="@dimen/number5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/app_type" />
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_txt_place_name" />
 
-                <Spinner
-                    android:id="@+id/spnShow"
+                    <EditText
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/edtName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:layout_editor_absoluteX="@dimen/number8"
-                    tools:layout_editor_absoluteY="@dimen/number0"/>
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/edtDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top|left"
+                        android:hint="@string/add_txt_place_detail"
+                        android:lines="7" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="@dimen/number5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/app_type"
+                        android:textStyle="bold"/>
+
+                    <Spinner
+                        android:id="@+id/spnShow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:layout_editor_absoluteX="@dimen/number8"
+                        tools:layout_editor_absoluteY="@dimen/number0"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/number5"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/imgImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img"
+                        android:scaleType="fitCenter"
+                        android:adjustViewBounds="true"/>
+                    <TextView
+                        android:layout_marginTop="@dimen/number8"
+                        android:id="@+id/txt_file_name_vdo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_marginTop="@dimen/number8"
+                        android:layout_marginBottom="@dimen/number8"
+                        android:id="@+id/txt_response_name_vdo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
+        </ScrollView>
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="4"
+            android:gravity="center"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
+
+            <Button
+                android:id="@+id/btnOk"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/number5"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:drawableTop="@drawable/save24"
+                android:text="บันทึก"
+                android:padding="@dimen/number8"
 
-                <ImageView
-                    android:id="@+id/imgImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/number160"
-                    android:src="@drawable/img"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"/>
+                android:background="@color/colorCyan800"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btnSearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/number16"
-                    android:paddingTop="@dimen/number8"
-                    android:paddingBottom="@dimen/number8"
-                    android:drawableTop="@drawable/image24"
-                    android:background="@color/colorGreen800"
-                    android:text="@string/app_add_image"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_marginTop="@dimen/number8"
-                android:layout_width="match_parent"
+            <Button
+                android:padding="@dimen/number8"
+                android:id="@+id/btncancle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:weightSum="2"
-                android:gravity="center">
+                android:layout_weight="1"
+                android:drawableTop="@drawable/close24"
+                android:text="@string/app_cancel"
+                android:background="@color/colorRed800"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btnOk"
-                    android:layout_width="@dimen/number0"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/save24"
-                    android:text="บันทึก"
-                    android:padding="@dimen/number8"
-                    android:layout_marginRight="@dimen/number8"
-                    android:background="@color/colorCyan800"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:padding="@dimen/number8"
-                    android:id="@+id/btncancle"
-                    android:layout_width="@dimen/number0"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/close24"
-                    android:text="@string/app_cancel"
-                    android:background="@color/colorCyan800"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:padding="@dimen/number8"
+                android:drawableTop="@drawable/image24"
+                android:background="@color/colorAmber800"
+                android:text="@string/app_add_image"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/btnVDO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:padding="@dimen/number8"
+                android:drawableTop="@drawable/ic_videocam_white_24dp"
+                android:background="@color/colorGreen800"
+                android:text="@string/app_add_video"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
 

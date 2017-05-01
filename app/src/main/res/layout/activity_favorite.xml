@@ -4,36 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.maptran.SearchActivity">
+    tools:context="sau.comsci.com.aoi.FavoriteActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_search"
+        android:id="@+id/toolbar_favorite"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_centerHorizontal="true"
-        android:background="@color/colorAccent"
-        app:layout_scrollFlags="scroll|enterAlways|snap">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right">
-            <android.support.v7.widget.SearchView
-                android:id="@+id/mSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:defaultQueryHint="@string/app_search" />
-        </RelativeLayout>
+        android:background="@color/colorAccent">
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
-        android:layout_below="@id/toolbar_search"
+        android:layout_below="@id/toolbar_favorite"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/myRecycler"
+            android:id="@+id/myRecycler_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             class="android.support.v7.widget.RecyclerView"/>
     </LinearLayout>
+
 </RelativeLayout>

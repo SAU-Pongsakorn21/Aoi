@@ -42,7 +42,10 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_search);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getImage(new SearchCallback() {
             @Override
@@ -53,6 +56,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
                 sv = (SearchView) findViewById(R.id.mSearch);
+
 
                 RecyclerView rv = (RecyclerView) findViewById(R.id.myRecycler);
                 rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -181,5 +185,12 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         return name;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp()
+    {
+        onBackPressed();
+        return true;
     }
 }

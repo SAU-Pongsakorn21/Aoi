@@ -2,20 +2,23 @@ package com.raw.arview;
 
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -24,6 +27,7 @@ import com.raw.arview.utils.Camera;
 import com.raw.arview.utils.LocationPlace;
 import com.raw.arview.utils.PaintUtils;
 import com.raw.arview.utils.RadarLine;
+import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -99,6 +103,10 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
     String value1;
     double value2;
     String[] type;
+    String[] vdo;
+    String[] photo;
+
+    ProgressDialog mDialog;
 
     public DataView(Context ctx) {
         this._context = ctx;
@@ -114,6 +122,8 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
         c_count = sharedPreferences.getInt("count",0);
         String[] idPlace = subStringName(sharedPreferences.getString("A_id_place",""));
         type = subStringName(sharedPreferences.getString("A_type",""));
+        photo = subStringName(sharedPreferences.getString("A_Photo",""));
+        vdo = subStringName(sharedPreferences.getString("A_VDO",""));
         if(idPlace.length != 1)
         {
             for(int i=0;i<idPlace.length;i++)
@@ -153,11 +163,19 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
 
             if(type[i].equals("1"))
             {
-                subjectImageView[i].setBackgroundResource(R.drawable.place48white);
-            }
-            else
-            {
                 subjectImageView[i].setBackgroundResource(R.drawable.ic_store);
+            }
+            else if(type[i].equals("2"))
+            {
+                subjectImageView[i].setBackgroundResource(R.drawable.ic_cafe_red);
+            }
+            else if(type[i].equals("3"))
+            {
+                subjectImageView[i].setBackgroundResource(R.drawable.ic_restaurant_blue);
+            }
+            else if(type[i].equals("4"))
+            {
+                subjectImageView[i].setBackgroundResource(R.drawable.ic_toc);
             }
 
 
@@ -391,10 +409,11 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(final View v) {
         isClick = !isClick;
         value1 = namePlace[v.getId()-1];
         value2 = distance[v.getId()-1];
+        keepView = v.getId()-1;
         locationMarkerView[v.getId()-1].setBackgroundResource(isClick ? R.drawable.shape_marker : R.drawable.shape_marker_click);
 
         final Dialog dialog = new Dialog(_context);
@@ -405,23 +424,59 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
 
         dialog.setContentView(R.layout.detail_location);
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        ImageView imagePlace = (ImageView) dialog.findViewById(R.id.dtl_img_place);
+        Picasso.with(_context).load("http://argeosau.xyz/"+photo[v.getId()-1]).into(imagePlace);
         TextView txt_title = (TextView) dialog.findViewById(R.id.dtl_txt_title);
         txt_title.setText(namePlace[v.getId()-1]);
         TextView txt_detail = (TextView) dialog.findViewById(R.id.dtl_txt_show);
         txt_detail.setText("ระยะทาง : " +new DecimalFormat("#,####.00").format(distance[v.getId()-1])+"เมตร");
+        final ImageButton btn_play_pause = (ImageButton) dialog.findViewById(R.id.img_play_pause);
+        final VideoView vdo_view = (VideoView) dialog.findViewById(R.id.dtl_vdo_view);
+        btn_play_pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog = new ProgressDialog(_context);
+                mDialog.setMessage("Please wait...");
+                mDialog.setCanceledOnTouchOutside(false);
+                mDialog.show();
+                try
+                {
+                    if(!vdo_view.isPlaying())
+                    {
+                        vdo_view.setVideoURI(Uri.parse(vdo[keepView]));
+                        vdo_view.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                btn_play_pause.setImageResource(R.drawable.ic_play);
+                            }
+                        });
+                    }
+                    else
+                    {
+                        vdo_view.pause();
+                        btn_play_pause.setImageResource(R.drawable.ic_play);
+                    }
+                }catch(Exception ex)
+                {
 
-
-        VideoView vdo_view = (VideoView) dialog.findViewById(R.id.dtl_vdo_view);
-        vdo_view.setVideoURI(Uri.parse("http://argeosau.xyz/Upload/Clean%20Bandit%20-%20Symphony%20feat.%20Zara%20Larsson%20%5bOfficial%20Video%5d.mp4"));
-        vdo_view.setMediaController(new MediaController(_context));
-        vdo_view.setBackgroundColor(Color.TRANSPARENT);
-        vdo_view.requestFocus();
-        vdo_view.start();
+                }
+                vdo_view.requestFocus();
+                vdo_view.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        mDialog.dismiss();
+                        vdo_view.start();
+                        btn_play_pause.setImageResource(R.drawable.ic_pause);
+                    }
+                });
+            }
+        });
+        Log.d("photo",""+photo[v.getId()-1]+"\n"+vdo[v.getId()-1]);
 
 
         Button btnClose = (Button) dialog.findViewById(R.id.dtl_btn_close);
         dialog.setCancelable(false);
-        keepView = v.getId()-1;
+
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

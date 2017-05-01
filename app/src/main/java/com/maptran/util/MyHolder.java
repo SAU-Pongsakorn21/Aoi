@@ -30,9 +30,8 @@ public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickLis
     }
 
     @Override
-    public void onClick(View view)
-    {
-        this.itemClickListener.onItemClick(view,getLayoutPosition());
+    public void onClick(View view) {
+        this.itemClickListener.onItemClick(view, getLayoutPosition());
     }
 
     public void setItemClickListener(ItemClickListener ic)
