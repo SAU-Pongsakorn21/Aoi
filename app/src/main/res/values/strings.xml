@@ -41,6 +41,8 @@
     <string name="app_favorite">Favorite</string>
     <string name="app_help">Help</string>
     <string name="app_type">ประเภท : </string>
+    <string name="app_edited">แก้ไข</string>
+    <string name="app_title">ชื่อสถานที่ : </string>
 
 
     <string-array name="type">

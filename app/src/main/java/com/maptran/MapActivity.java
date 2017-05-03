@@ -73,6 +73,7 @@ import sau.comsci.com.aoi.FavoriteActivity;
 import sau.comsci.com.aoi.LoginActivity;
 import sau.comsci.com.aoi.R;
 import sau.comsci.com.aoi.SharedPrefManager;
+import sau.comsci.com.aoi.ShowExtraDetail;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, com.google.android.gms.location.LocationListener, NavigationView.OnNavigationItemSelectedListener{
 
@@ -92,7 +93,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Double getLongitude;
     private String getDescription;
     private String getPhotoUrl;
-    private String mLat,mLong,mIdplace,mNamePlace,mResult,mType,mPhoto,mVDO; // ตัวแปร เก็บ Callback ส่งไปให้ Ar
+    private String mLat,mLong,mIdplace,mNamePlace,mResult,mType,mPhoto,mVDO,mDetail; // ตัวแปร เก็บ Callback ส่งไปให้ Ar
     //--------------------------------------------
     //สร้างตัวเเปลมาเก็บค่าที่ได้จาก ตำเเหน่งของเครื่อง จาก Class TackGPS
     TackGPS gps;
@@ -137,7 +138,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     //---------------------------------- json Response AR view.
     String place_id, place_name, place_detail, user_username,place_type,place_photo;
     String vdo_path;
-    public List<String> namePlace, id_place, type_place,photo,video;
+    public List<String> namePlace, id_place, type_place,photo,video,detailPlace;
     public List<Double> myLat, myLong;
     public double place_latitude, place_longitude;
     public Gson gson = new Gson();
@@ -199,7 +200,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         getDataFromServer(new VolleyCallback() {
             @Override
             public void onSuccessResponse(String result, List<Double> Lat, List<Double> Long, List<String> place, List<String> id_place,List<String>type
-            ,List<String> L_photo,List<String> L_video) {
+            ,List<String> L_photo,List<String> L_video,List<String> L_detail) {
                 mResult = gson.toJson(result).toString();
                 mLat = gson.toJson(Lat).toString();
                 mLong = gson.toJson(Long).toString();
@@ -208,6 +209,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 mType = gson.toJson(type).toString();
                 mPhoto = gson.toJson(L_photo).toString();
                 mVDO = gson.toJson(L_video).toString();
+                mDetail = gson.toJson(L_detail).toString();
+
             }
         });
     }
@@ -431,10 +434,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(MapActivity.this, DetailActivity.class);
-                intent.putExtra("getLocationName", getLocationName);
-                intent.putExtra("getDescription", getDescription);
-                intent.putExtra("urlImage", url);
+                intent = new Intent(MapActivity.this, ShowExtraDetail.class);
+                intent.putExtra("name_place", getLocationName);
+                intent.putExtra("name_detail", getDescription);
+                intent.putExtra("name_photo",getPhotoUrl);
+                intent.putExtra("page","page01");
                 startActivity(intent);
                 finish();
             }
@@ -548,6 +552,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             intent.putExtra("type",mType);
             intent.putExtra("vdo",mVDO);
             intent.putExtra("photo",mPhoto);
+            intent.putExtra("detail",mDetail);
             this.startActivity(intent);
             finish();
         }
@@ -651,6 +656,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         type_place = new ArrayList<String>();
         photo = new ArrayList<String>();
         video = new ArrayList<String>();
+        detailPlace = new ArrayList<String>();
         JsonArrayRequest jsRequest = new JsonArrayRequest(Contants.ROOT_URL,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -673,6 +679,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             type_place.add(place_type);
                             photo.add(place_photo);
                             video.add(vdo_path);
+                            detailPlace.add(place_detail);
 
                         } else {
                             try {
@@ -693,10 +700,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     type_place.add(place_type);
                                     photo.add(place_photo);
                                     video.add(vdo_path);
+                                    detailPlace.add(place_detail);
                                 }
                                 count = myLat.size();
                                 Log.d("count",""+myLat+"\ncount"+count);
-                                callback.onSuccessResponse(String.valueOf(count), myLat, myLong, namePlace, id_place,type_place,photo,video);
+                                callback.onSuccessResponse(String.valueOf(count), myLat, myLong, namePlace, id_place,type_place,photo,video,detailPlace);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } finally {

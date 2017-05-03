@@ -13,4 +13,5 @@ public class Contants {
     public static final String ROOT_URL_LOAD_IMAGE = ROOT +"Operator/getImage.php";
     public static final String ROOT_URL_UPLOAD_VDO = ROOT +"Operator/uploads.php?user_name=";
     public static final String ROOT_URL_FAVORITE = ROOT+"Operator/getFavorite.php?user_id=";
+    public static final String ROOT_URL_UPDATE = ROOT+"Operator/updateLocation.php";
 }

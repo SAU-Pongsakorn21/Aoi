@@ -26,8 +26,8 @@ import sau.comsci.com.aoi.utils.FavoriteCallback;
 
 public class FavoriteActivity extends AppCompatActivity {
 
-    ArrayList<String>d_detail ,d_title,d_image, d_vdo;
-    String title ,detail ,image, vdo;
+    ArrayList<String>d_detail ,d_title,d_image, d_vdo,d_user,d_type,d_id;
+    String title ,detail ,image, vdo,user, type,id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,11 +40,11 @@ public class FavoriteActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getImage(new FavoriteCallback(){
             @Override
-            public void onSuccessResponse(List<String> name, List<String> detail, List<String> image,List<String> vdo) {
+            public void onSuccessResponse(List<String> name, List<String> detail, List<String> image,List<String> vdo,List<String> user,List<String> type,List<String> id) {
                 RecyclerView rv = (RecyclerView) findViewById(R.id.myRecycler_favorite);
                 rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 rv.setItemAnimator(new DefaultItemAnimator());
-                final MyAdapter adapter = new MyAdapter(getApplicationContext(),getPlaces(name,detail,image));
+                final MyAdapter adapter = new MyAdapter(getApplicationContext(),getPlaces(name,detail,image,user,type,id));
                 rv.setAdapter(adapter);
             }
         });
@@ -58,7 +58,9 @@ public class FavoriteActivity extends AppCompatActivity {
         d_image = new ArrayList<>();
         d_title = new ArrayList<>();
         d_vdo = new ArrayList<>();
-
+        d_user = new ArrayList<>();
+        d_type = new ArrayList<>();
+        d_id = new ArrayList<>();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Contants.ROOT_URL_FAVORITE+SharedPrefManager.getInstance(this).getUsername()
                 , new Response.Listener<JSONArray>() {
             @Override
@@ -74,11 +76,16 @@ public class FavoriteActivity extends AppCompatActivity {
                         detail = jsonObject.getString("LocationDescription");
                         image = jsonObject.getString("LocationPhoto");
                         vdo = jsonObject.getString("LocationVDO");
-
+                        user = jsonObject.getString("LocationUsername");
+                        type = jsonObject.getString("LocationType");
+                        id = jsonObject.getString("LocationId");
                         d_title.add(title);
                         d_detail.add(detail);
                         d_image.add(image);
                         d_vdo.add(vdo);
+                        d_user.add(user);
+                        d_type.add(type);
+                        d_id.add(id);
                     }
                     catch(JSONException e)
                     {
@@ -86,7 +93,7 @@ public class FavoriteActivity extends AppCompatActivity {
                     }
 
                 }
-                callback.onSuccessResponse(d_title,d_detail,d_image,d_vdo);
+                callback.onSuccessResponse(d_title,d_detail,d_image,d_vdo,d_user,d_type,d_id);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -99,7 +106,9 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
 
-    public ArrayList<Place> getPlaces(List<String> name, List<String> detail, List<String> image)
+    public ArrayList<Place> getPlaces(List<String> name, List<String> detail,
+                                      List<String> image,List<String> user,List<String> type,
+                                      List<String> id)
     {
         ArrayList<Place> places = new ArrayList<>();
         Place p = new Place();
@@ -109,6 +118,9 @@ public class FavoriteActivity extends AppCompatActivity {
             p.setPlace_image(image.get(i));
             p.setPlace_name(name.get(i));
             p.setPlace_detail(detail.get(i));
+            p.setPlace_user(user.get(i));
+            p.setPlace_type(type.get(i));
+            p.setId(id.get(i));
             places.add(p);
             p = new Place();
         }

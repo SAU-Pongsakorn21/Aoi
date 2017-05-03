@@ -100,11 +100,11 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
     double[] latitude;
     double[] longitude;
 
-    String value1;
-    double value2;
+    String value1,value2,value3;
     String[] type;
     String[] vdo;
     String[] photo;
+    String[] detail;
 
     ProgressDialog mDialog;
 
@@ -121,6 +121,7 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
 
         c_count = sharedPreferences.getInt("count",0);
         String[] idPlace = subStringName(sharedPreferences.getString("A_id_place",""));
+        detail = subStringName(sharedPreferences.getString("A_detail",""));
         type = subStringName(sharedPreferences.getString("A_type",""));
         photo = subStringName(sharedPreferences.getString("A_Photo",""));
         vdo = subStringName(sharedPreferences.getString("A_VDO",""));
@@ -412,7 +413,8 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
     public void onClick(final View v) {
         isClick = !isClick;
         value1 = namePlace[v.getId()-1];
-        value2 = distance[v.getId()-1];
+        value2 = detail[v.getId()-1];
+        value3 = photo[v.getId()-1];
         keepView = v.getId()-1;
         locationMarkerView[v.getId()-1].setBackgroundResource(isClick ? R.drawable.shape_marker : R.drawable.shape_marker_click);
 
@@ -493,7 +495,9 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
 
                 Intent intent = new Intent(_context, ShowExtraDetail.class);
                 intent.putExtra("name_place",value1);
-                intent.putExtra("distance",value2);
+                intent.putExtra("name_detail",value2);
+                intent.putExtra("name_photo",value3);
+                intent.putExtra("page","page02");
                 _context.startActivity(intent);
                 finish();
             }

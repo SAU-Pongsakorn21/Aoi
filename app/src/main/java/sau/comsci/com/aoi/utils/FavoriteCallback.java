@@ -7,5 +7,5 @@ import java.util.List;
  */
 
 public interface FavoriteCallback {
-    void onSuccessResponse(List<String> name, List<String> detail, List<String> image,List<String> vdo);
+    void onSuccessResponse(List<String> name, List<String> detail, List<String> image,List<String> vdo,List<String> user,List<String> type,List<String> id);
 }

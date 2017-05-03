@@ -13,7 +13,7 @@ import sau.comsci.com.aoi.R;
 
 public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
-    ImageView img_place;
+    ImageView img_place,overflow;
     TextView txt_name_place,txt_detail_place;
 
     ItemClickListener itemClickListener;
@@ -25,6 +25,7 @@ public class MyHolder extends RecyclerView.ViewHolder implements View.OnClickLis
         this.img_place = (ImageView) itemView.findViewById(R.id.img_cardview_thumbnail);
         this.txt_name_place = (TextView) itemView.findViewById(R.id.txt_card_title);
         this.txt_detail_place = (TextView) itemView.findViewById(R.id.txt_card_detail);
+        this.overflow = (ImageView) itemView.findViewById(R.id.img_cardview_overflow);
 
         itemView.setOnClickListener(this);
     }

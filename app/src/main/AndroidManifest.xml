@@ -55,7 +55,7 @@
         </activity>
         <activity android:name=".Register_Activity" />
         <activity android:name="com.maptran.SelectLocationActivity" />
-        <activity android:name="com.maptran.DetailActivity" />
+        <activity android:name="com.maptran.EditedActivity" />
         <activity android:name="com.maptran.AddLocationActivity" />
         <activity
             android:name="com.raw.arview.ARView"

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface SearchCallback {
 
-    void onSuccessResponse(List<String> name, List<String> detail, List<String> image);
+    void onSuccessResponse(List<String> name, List<String> detail, List<String> image,List<String> user,List<String> type,List<String> id);
 }

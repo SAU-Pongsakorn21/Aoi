@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.google.gson.Gson;
 import com.maptran.util.Contants;
 import com.maptran.util.MyAdapter;
 import com.maptran.util.Place;
@@ -26,16 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sau.comsci.com.aoi.R;
+import sau.comsci.com.aoi.SharedPrefManager;
 
 public class SearchActivity extends AppCompatActivity {
     SearchView sv;
-    ArrayList<String>d_detail ,d_title,d_image;
-    Place place;
-    String title ,detail ,image;
-    Gson gson = new Gson();
-    MyAdapter adapter;
-    String m_title,m_detail,m_image;
-    private List<Place> itemList;
+    ArrayList<String>d_detail ,d_title,d_image,d_user,d_type,d_id;
+    String title ,detail ,image, user,type,id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,11 +44,7 @@ public class SearchActivity extends AppCompatActivity {
 
         getImage(new SearchCallback() {
             @Override
-            public void onSuccessResponse(List<String> name, List<String> detail, List<String> image) {
-               /* m_title = (gson.toJson(name));
-                m_detail = gson.toJson(detail.toString());
-                m_image = gson.toJson(image.toString());*/
-
+            public void onSuccessResponse(List<String> name, List<String> detail, List<String> image,List<String> user,List<String> type,List<String> id) {
 
                 sv = (SearchView) findViewById(R.id.mSearch);
 
@@ -61,7 +52,7 @@ public class SearchActivity extends AppCompatActivity {
                 RecyclerView rv = (RecyclerView) findViewById(R.id.myRecycler);
                 rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 rv.setItemAnimator(new DefaultItemAnimator());
-                final MyAdapter adapter = new MyAdapter(getApplicationContext(),getPlaces(name,detail,image));
+                final MyAdapter adapter = new MyAdapter(getApplication(),getPlaces(name,detail,image,user,type,id));
                 rv.setAdapter(adapter);
 
                 sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -85,7 +76,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
-    public ArrayList<Place> getPlaces(List<String>name,List<String> detail,List<String> image)
+    public ArrayList<Place> getPlaces(List<String>name,List<String> detail,List<String> image,List<String> user,List<String> type,List<String> id)
     {
         ArrayList<Place> places = new ArrayList<>();
         Place p = new Place();
@@ -95,7 +86,11 @@ public class SearchActivity extends AppCompatActivity {
             p.setPlace_image(image.get(i));
             p.setPlace_name(name.get(i));
             p.setPlace_detail(detail.get(i));
+            p.setPlace_user(user.get(i));
+            p.setPlace_type(type.get(i));
+            p.setId(id.get(i));
             places.add(p);
+
             p = new Place();
         }
         return places;
@@ -124,9 +119,11 @@ public class SearchActivity extends AppCompatActivity {
         d_detail = new ArrayList<>();
         d_image = new ArrayList<>();
         d_title = new ArrayList<>();
-
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Contants.ROOT_URL_LOAD_IMAGE, new Response.Listener<JSONArray>() {
+        d_user = new ArrayList<>();
+        d_type = new ArrayList<>();
+        d_id = new ArrayList<>();
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Contants.ROOT_URL_LOAD_IMAGE+"?user_username="+ SharedPrefManager.getInstance(this).getUsername()
+                , new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject;
@@ -139,10 +136,15 @@ public class SearchActivity extends AppCompatActivity {
                         title = jsonObject.getString("LocationName");
                         detail = jsonObject.getString("LocationDescription");
                         image = jsonObject.getString("LocationPhoto");
-
+                        user = jsonObject.getString("LocationUsername");
+                        type = jsonObject.getString("LocationType");
+                        id = jsonObject.getString("LocationId");
                         d_title.add(title);
                         d_detail.add(detail);
                         d_image.add(image);
+                        d_user.add(user);
+                        d_type.add(type);
+                        d_id.add(id);
                     }
                     catch(JSONException e)
                     {
@@ -150,7 +152,7 @@ public class SearchActivity extends AppCompatActivity {
                     }
 
                 }
-                callback.onSuccessResponse(d_title,d_detail,d_image);
+                callback.onSuccessResponse(d_title,d_detail,d_image,d_user,d_type,d_id);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -193,4 +195,6 @@ public class SearchActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+
 }

@@ -198,6 +198,7 @@ public class ARView extends AppCompatActivity implements OnLocationChangedListen
             A_type = "0";
             A_Photo = "No value";
             A_VDO = "No value";
+            A_placeDetail = "No value";
 
             sharedPreferences = getPreferences(MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -209,6 +210,7 @@ public class ARView extends AppCompatActivity implements OnLocationChangedListen
             editor.putString("A_type",A_type);
             editor.putString("A_Photo",A_Photo);
             editor.putString("A_VDO",A_VDO);
+            editor.putString("A_detail",A_placeDetail);
             editor.commit();
         }
         else
@@ -221,7 +223,7 @@ public class ARView extends AppCompatActivity implements OnLocationChangedListen
             A_type = String.valueOf(bundle.get("type"));
             A_VDO = String.valueOf(bundle.get("vdo"));
             A_Photo = String.valueOf(bundle.get("photo"));
-
+            A_placeDetail = String.valueOf(bundle.get("detail"));
 
             sharedPreferences = getPreferences(MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -233,6 +235,7 @@ public class ARView extends AppCompatActivity implements OnLocationChangedListen
             editor.putString("A_type",A_type);
             editor.putString("A_Photo",A_Photo);
             editor.putString("A_VDO",A_VDO);
+            editor.putString("A_detail",A_placeDetail);
             editor.commit();
 
 
