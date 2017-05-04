@@ -15,8 +15,7 @@ import android.widget.Filterable;
 import android.widget.Toast;
 
 import com.maptran.EditedActivity;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -71,13 +70,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> implements Filtera
             url = url.replace("]","");
         }*/
 
-       // Picasso.with(mCtx).load("http://argeosau.xyz/"+url).placeholder(R.drawable.loading).into(holder.img_place);
+        Picasso.with(mCtx).load("http://argeosau.xyz/"+url).placeholder(R.drawable.loading).into(holder.img_place);
         Log.d("position","http://argeosau.xyz/"+url);
 
-        ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(mCtx).build();
+        /*ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(mCtx).build();
         ImageLoader.getInstance().init(imageLoaderConfiguration);
         ImageLoader imageLoader = ImageLoader.getInstance();
-        imageLoader.displayImage("http://argeosau.xyz/"+url, holder.img_place);
+        imageLoader.displayImage("http://argeosau.xyz/"+url, holder.img_place);*/
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onItemClick(View v, int pos) {

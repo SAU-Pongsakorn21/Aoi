@@ -69,7 +69,6 @@
                         android:textSize="@dimen/text_number15"/>
                     <EditText
                         android:gravity="top|left"
-                        android:hint="333"
                         android:layout_marginRight="@dimen/number3"
                         android:layout_marginLeft="@dimen/number3"
                         android:layout_gravity="bottom"
@@ -94,7 +93,7 @@
                         android:layout_marginLeft="@dimen/number3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/img"
+                        android:src="@drawable/loading"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"/>
                 </LinearLayout>
@@ -138,7 +137,7 @@
                 android:padding="@dimen/number8"
                 android:drawableTop="@drawable/image24"
                 android:background="@color/colorAmber800"
-                android:text="@string/app_add_image"
+                android:text="@string/app_e_image"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold" />
 

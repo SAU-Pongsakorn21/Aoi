@@ -139,10 +139,11 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
 
 
         namePlace = subStringName(sharedPreferences.getString("A_placename",""));
-        locationMarkerView = new RelativeLayout[c_count];
-        layoutParamses = new RelativeLayout.LayoutParams[c_count];
-        subjectImageViewParams = new RelativeLayout.LayoutParams[c_count];
-        subjectTextViewParams = new RelativeLayout.LayoutParams[c_count];
+
+        locationMarkerView = new RelativeLayout[c_count]; //
+        layoutParamses = new RelativeLayout.LayoutParams[c_count]; //กรอปใส่รูปและข้อความ
+        subjectImageViewParams = new RelativeLayout.LayoutParams[c_count]; // กรอบใส่รูป
+        subjectTextViewParams = new RelativeLayout.LayoutParams[c_count];  // กรอบใส่ข้อความ
         subjectImageView = new ImageView[c_count];
         locationTextView = new TextView[c_count];
         nextXofText = new int[c_count];
@@ -184,15 +185,17 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
             locationTextView[i].setId(R.id.TextViewID);
 
             locationMarkerView[i] = new RelativeLayout(_context);
-            locationMarkerView[i].setBackgroundResource(R.drawable.shape_marker);
+            locationMarkerView[i].setBackgroundResource(R.drawable.marker01);
 
             layoutParamses[i].setMargins(displayMetrics.widthPixels / 2, displayMetrics.heightPixels / 2, 0, 0);
 
-            subjectImageViewParams[i].addRule(RelativeLayout.ALIGN_PARENT_LEFT,RelativeLayout.TRUE);
+            subjectImageViewParams[i].addRule(RelativeLayout.ALIGN_PARENT_LEFT,RelativeLayout.TRUE); //กำหนดตำแหน่ง รูปภาพ
             subjectImageViewParams[i].addRule(RelativeLayout.ALIGN_PARENT_TOP,RelativeLayout.TRUE);
-            subjectTextViewParams[i].addRule(RelativeLayout.RIGHT_OF,subjectImageView[i].getId());
+            subjectTextViewParams[i].addRule(RelativeLayout.RIGHT_OF,subjectImageView[i].getId()); //กำหนดตำแหน่ง ข้อความ
             subjectTextViewParams[i].addRule(RelativeLayout.ALIGN_BASELINE,subjectImageView[i].getId());
-            subjectImageViewParams[i].setMargins(16,16,16,16);
+            subjectImageViewParams[i].setMargins(16,20,16,16);
+            subjectTextViewParams[i].setMargins(16,0,0,0);
+
             locationMarkerView[i].setLayoutParams(layoutParamses[i]);
             locationMarkerView[i].addView(subjectImageView[i],subjectImageViewParams[i]);
             locationMarkerView[i].addView(locationTextView[i],subjectTextViewParams[i]);
@@ -416,7 +419,7 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
         value2 = detail[v.getId()-1];
         value3 = photo[v.getId()-1];
         keepView = v.getId()-1;
-        locationMarkerView[v.getId()-1].setBackgroundResource(isClick ? R.drawable.shape_marker : R.drawable.shape_marker_click);
+        locationMarkerView[v.getId()-1].setBackgroundResource(isClick ? R.drawable.marker01 : R.drawable.marker01_click);
 
         final Dialog dialog = new Dialog(_context);
         Window window = dialog.getWindow();
@@ -427,7 +430,15 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
         dialog.setContentView(R.layout.detail_location);
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         ImageView imagePlace = (ImageView) dialog.findViewById(R.id.dtl_img_place);
-        Picasso.with(_context).load("http://argeosau.xyz/"+photo[v.getId()-1]).into(imagePlace);
+
+        /*ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(_context).build();
+        ImageLoader.getInstance().init(imageLoaderConfiguration);
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.displayImage("http://argeosau.xyz/"+photo[v.getId()-1],imagePlace);*/
+
+        Picasso.with(_context).load("http://argeosau.xyz/"+photo[v.getId()-1]).placeholder(R.drawable.loading).into(imagePlace);
+
+
         TextView txt_title = (TextView) dialog.findViewById(R.id.dtl_txt_title);
         txt_title.setText(namePlace[v.getId()-1]);
         TextView txt_detail = (TextView) dialog.findViewById(R.id.dtl_txt_show);
@@ -483,7 +494,7 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                locationMarkerView[keepView].setBackgroundResource(R.drawable.shape_marker);
+                locationMarkerView[keepView].setBackgroundResource(R.drawable.marker01);
                 isClick = true;
             }
         });

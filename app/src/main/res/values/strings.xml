@@ -43,6 +43,7 @@
     <string name="app_type">ประเภท : </string>
     <string name="app_edited">แก้ไข</string>
     <string name="app_title">ชื่อสถานที่ : </string>
+    <string name="app_e_image">แก้ไขภาพ</string>
 
 
     <string-array name="type">

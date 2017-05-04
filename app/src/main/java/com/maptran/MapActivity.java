@@ -52,10 +52,9 @@ import com.google.maps.android.ui.IconGenerator;
 import com.maptran.util.Contants;
 import com.maptran.util.RequestHandler;
 import com.maptran.util.TackGPS;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.raw.arview.ARView;
 import com.raw.arview.utils.VolleyCallback;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -417,10 +416,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         btnInfo = (Button) parentview.findViewById(R.id.btnInfo);
         btnDelete = (Button) parentview.findViewById(R.id.btnDelete);
 
-        ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this).build();
+        /*ImageLoaderConfiguration imageLoaderConfiguration = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(imageLoaderConfiguration);
         ImageLoader imageLoader = ImageLoader.getInstance();
-        imageLoader.displayImage(url, imgShowPhoto);
+        imageLoader.displayImage(url, imgShowPhoto);*/
+
+        Picasso.with(this).load(url).placeholder(R.drawable.loading).into(imgShowPhoto);
 
         txtTitle.setText("ชื่อสถานที่ :" + " " + getLocationName);
         address();

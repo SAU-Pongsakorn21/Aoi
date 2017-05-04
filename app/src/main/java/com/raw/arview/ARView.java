@@ -188,7 +188,7 @@ public class ARView extends AppCompatActivity implements OnLocationChangedListen
     {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        if(bundle.get("result").equals("") || bundle.get("result") == null)
+        if(bundle.get("result") == null)
         {
             count = 0;
             A_Lat = "0";

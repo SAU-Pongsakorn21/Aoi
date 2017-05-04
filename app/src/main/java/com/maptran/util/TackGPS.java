@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 /**
  * Created by kwans on 3/31/2017.
@@ -55,9 +56,14 @@ public class TackGPS extends Service implements LocationListener {
             //getting network status
             checkNetwork = locationManager.isProviderEnabled(locationManager.GPS_PROVIDER);
 
-            if (!checkGPS && !checkNetwork) {
+            if (!checkGPS) {
                 showSettingsAlert();
-            } else {
+            }
+            else if(!checkNetwork)
+            {
+                Toast.makeText(mContext,"กรุณาเชื่อมต่ออินเทอร์เน็ต...!",Toast.LENGTH_SHORT).show();
+            }
+            else {
                 this.canGetLocation = true;
                 if (checkNetwork) {
                     try {

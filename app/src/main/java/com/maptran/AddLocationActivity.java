@@ -197,7 +197,7 @@ public class AddLocationActivity extends AppCompatActivity implements  View.OnCl
                     jsonObject = new JSONObject(response);
                     if (jsonObject.getBoolean("checkname") == false) {
                         progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "ชื่อสถานที่ซ้ำกัน", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "ชื่อสถานที่ซ้ำกัน...", Toast.LENGTH_SHORT).show();
 
                     } else if (jsonObject.getBoolean("status") == true) {
                         //uploading.dismiss();
@@ -206,7 +206,7 @@ public class AddLocationActivity extends AppCompatActivity implements  View.OnCl
                         finish();
                     } else {
                         progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "บันทึกข้อมูลผิดพลาด", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "บันทึกข้อมูลผิดพลาด...", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
@@ -216,7 +216,7 @@ public class AddLocationActivity extends AppCompatActivity implements  View.OnCl
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "ไม่สามารถเชื่อมต่อเซิฟเวอร์ได้...!", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override

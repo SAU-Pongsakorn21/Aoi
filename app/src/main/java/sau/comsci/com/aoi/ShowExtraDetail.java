@@ -1,7 +1,9 @@
 package sau.comsci.com.aoi;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +23,13 @@ public class ShowExtraDetail extends AppCompatActivity {
         txt_ext_titile = (TextView) findViewById(R.id.txt_ext_title2);
         img_photo = (ImageView) findViewById(R.id.img_ext_thumbnail);
 
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_extra);
+        toolbar.setTitle("");
+        toolbar.setSubtitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if(bundle != null)
         {
@@ -51,5 +60,12 @@ public class ShowExtraDetail extends AppCompatActivity {
                 txt_ext_detail.setText(detail);
             }
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp()
+    {
+        onBackPressed();
+        return  true;
     }
 }
