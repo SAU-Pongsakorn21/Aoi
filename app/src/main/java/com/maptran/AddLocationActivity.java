@@ -111,6 +111,7 @@ public class AddLocationActivity extends AppCompatActivity implements  View.OnCl
 
     public void Toolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.ToolbarAdd);
+        toolbar.setTitle("Add Location");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

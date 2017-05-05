@@ -101,6 +101,7 @@ public class SelectLocationActivity extends AppCompatActivity implements OnMapRe
     }
     public void Toolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.ToolbarAdd);
+        toolbar.setTitle("Select Location Place");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
