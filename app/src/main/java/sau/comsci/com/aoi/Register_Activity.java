@@ -53,6 +53,7 @@ public class Register_Activity extends AppCompatActivity implements View.OnClick
 
 
         toolbar = (Toolbar) findViewById(R.id.register_toolbar);
+        toolbar.setTitle("Register");
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);

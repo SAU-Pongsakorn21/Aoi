@@ -35,7 +35,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.maptran.MapActivity" />
+        <activity android:name="com.maptran.MapActivity"
+            android:screenOrientation="portrait"/>
 
         <!-- กำหนด API เพื่อใช้งาน GOOGLE MAP -->
         <meta-data
@@ -46,23 +47,30 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register_Activity" />
-        <activity android:name="com.maptran.SelectLocationActivity" />
-        <activity android:name="com.maptran.EditedActivity" />
-        <activity android:name="com.maptran.AddLocationActivity" />
+        <activity android:name=".Register_Activity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.maptran.SelectLocationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.maptran.EditedActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.maptran.AddLocationActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.raw.arview.ARView"
             android:screenOrientation="landscape" />
         <activity android:name=".ShowExtraDetail" />
-        <activity android:name="com.maptran.SearchActivity" />
-        <activity android:name=".FavoriteActivity"></activity>
+        <activity android:name="com.maptran.SearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".FavoriteActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

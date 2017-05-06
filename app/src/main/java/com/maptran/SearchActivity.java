@@ -96,24 +96,6 @@ public class SearchActivity extends AppCompatActivity {
         return places;
     }
 
-    /*public ArrayList<Place> getPlaces(String name, String detail, String image)
-    {
-        ArrayList<Place> places = new ArrayList<>();
-        Place p = new Place();
-        String[] L_name = name.split(",");
-        String[] L_detail = detail.split(",");
-        String[] L_image = image.split(",");
-        for(int i=0;i<L_name.length;i++)
-        {
-            p.setPlace_name(subString(L_name[i]));
-            p.setPlace_detail(subString(L_detail[i]));
-            p.setPlace_image(subString(L_image[i]));
-            places.add(p);
-            p = new Place();
-        }
-        return places;
-    }*/
-
     public void getImage(final SearchCallback callback)
     {
         d_detail = new ArrayList<>();
@@ -170,24 +152,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    public String subString(String name)
-    {
-        if(name.contains("[\""))
-        {
-            name = name.replace("[\"","");
-        }
-        if(name.contains("\"]"))
-        {
-            name = name.replace("\"]","");
-        }
-
-        if(name.contains("\""))
-        {
-            name = name.replace("\"","");
-        }
-
-        return name;
-    }
 
     @Override
     public boolean onSupportNavigateUp()
@@ -195,6 +159,4 @@ public class SearchActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-
-
 }

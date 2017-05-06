@@ -280,8 +280,16 @@ public class DataView extends AppCompatActivity implements View.OnClickListener 
         }
         else
         {
-            latitude = subString(sharedPreferences.getString("A_Lat",""));
-            longitude = subString(sharedPreferences.getString("A_Long",""));
+            if(sharedPreferences.getString("A_Lat","").equals(""))
+            {
+                latitude = new double[] {0.0};
+                longitude = new double[] {0.0};
+            }
+            else
+            {
+                latitude = subString(sharedPreferences.getString("A_Lat",""));
+                longitude = subString(sharedPreferences.getString("A_Long",""));
+            }
         }
         distance = new double[count_marker];
 

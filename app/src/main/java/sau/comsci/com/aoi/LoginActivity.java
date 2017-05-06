@@ -64,11 +64,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     {
         if(view == btn_login)
         {
+            progressDialog.show();
             userLogin();
 
         }
         else if(view == txt_register)
         {
+            progressDialog.show();
             Intent intent = new Intent(LoginActivity.this,Register_Activity.class);
             startActivity(intent);
             finish();
@@ -91,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(
                                         jsonObject.getInt("user_id"), jsonObject.getString("user_username"), jsonObject.getString("user_email")
                                 );
+                                progressDialog.dismiss();
                                 Toast.makeText(getApplicationContext(),"User login successful",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this,MapActivity.class);
                                 startActivity(intent);
